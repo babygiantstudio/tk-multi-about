@@ -18,6 +18,9 @@ from tank.platform.qt import QtCore, QtGui
 from tank.platform import restart
 from .ui.dialog import Ui_Dialog
 
+import sgtk
+logger = sgtk.platform.get_logger(__name__)
+
 class AppDialog(QtGui.QWidget):
 
     
@@ -28,7 +31,7 @@ class AppDialog(QtGui.QWidget):
         self.ui.setupUi(self)
         
         self._app = app
-        
+
         # set up the browsers
         self.ui.context_browser.set_app(self._app)
         self.ui.context_browser.set_label("Your Current Work Context")
@@ -94,6 +97,10 @@ class AppDialog(QtGui.QWidget):
         """
         Jump from context to FS
         """
+
+        logger.warning("Someone clicked the 'show in filesystem' button!")
+
+
         # launch one window for each location on disk
         paths = self._app.context.filesystem_locations
         for disk_location in paths:
